@@ -1,0 +1,579 @@
+						Day4-Assignment
+
+31.Create a class Student with 2 data members rno and name. Create one method setData() that takes roll number and student name as parameter and stores them in data members rno and name. Create one more method showData() to print the data member values. Create another class ( main class) StudentDemo that creates Student class object and calls setData() and showData() methods.
+Ans : 
+package Assignment1;
+class Student {
+	private int rno;
+	private String name;
+	void setData(int rno , String name) {
+		this.rno = rno;
+		this.name = name;
+	}
+	void showData() {
+		System.out.println("rno = "+rno+", name = "+name);
+	}
+	
+}
+
+public class Assign31 {
+
+	public static void main(String[] args) {
+		Student s1 = new Student();
+		s1.setData(101,"Amrita");
+		s1.showData();
+
+	}
+}
+
+================================================================================================================================
+
+32. Modify the above program (no. 30) to count the no of Student objects created. [ In this program static variable is required ]
+
+Ans:
+package Assignment1;
+
+class StudentDetial{
+	static int no_of_object = 0;
+	{
+		no_of_object++;
+	}
+	private int rno;
+	private String name;
+	
+	void setData(int rno , String name) {
+		this.rno = rno;
+		this.name= name;
+	}
+	void setShow() {
+		System.out.println("RollNumber : "+rno+" Name : "+name);
+	}
+}
+public class Assign32 {
+
+	public static void main(String[] args) {
+		StudentDetial s1 = new StudentDetial();
+		s1.setData(100,"Amrita");
+		s1.setShow();
+		StudentDetial s2 = new StudentDetial();
+		s2.setData(101,"Shivi");
+		s2.setShow();
+		StudentDetial s3 = new StudentDetial();
+		s3.setData(102,"janvi");
+		s3.setShow();
+		StudentDetial s4 = new StudentDetial();
+		s4.setData(103,"Tanish");
+		s4.setShow();
+        System.out.println(StudentDetial.no_of_object);
+	}
+
+}
+
+================================================================================================================================
+
+33. Write a program to demonstrate functionalities of this keyword in java. 
+
+Ans:
+package Assignment1;
+class A{
+	int a;
+	int b;
+	A(){
+		 a =10;
+		 b = 20;
+		System.out.println("class-A constructor");
+	}
+	void display(A obj) {
+		System.out.println("a = "+a+"  b = "+b);
+	}
+	void get()
+	{
+		display(this);
+	}
+}
+class B extends A{
+	int x;
+	int y;
+	B(){
+		this(10,20);
+		System.out.println("inside class-B 0-para constructor");
+	   }
+	B(int x,int y){
+		System.out.println("inside class-B parameterized constructor");
+		this.x = x;
+		this.y = y;
+	}
+}
+public class Assign33 {
+	public static void main(String[] args) {
+		B b = new B();
+		b.get();
+	}
+}
+
+================================================================================================================================
+
+34. Create a class Circle that has two data members, one to store the radius and another to store area and three methods first init() method to input radius from user, second calculateArea() method to calculate area of circle and third display() method to display values of radius and area. Create class CircleDemo ( main class) that creates the Circle object and calls init(), calculateArea() and display() methods.
+
+Ans:
+package Assignment1;
+
+class Circle{
+	private double radius;
+	private double area;
+	void init(double radius) {
+		this.radius = radius;
+	}
+	void calculateArea() {
+		area = 3.14*radius*radius;
+	}
+	void display() {	
+		System.out.println("Radius = "+radius+"\nArea of circle = "+area);
+	}
+}
+public class Assign34 {
+
+	public static void main(String[] args) {
+		Circle c = new Circle();
+		c.init(4);
+		c.calculateArea();
+		c.display();
+
+	}
+}
+
+================================================================================================================================
+
+35. Create a class MathOperation that has four static methods. add() method that takes two integer numbers as parameter and returns the sum of the numbers. subtract() method that takes two integer numbers as parameter and returns the difference of the numbers. multiply() method that takes two integer numbers as parameter and returns the product. power() method that takes two integer numbers as parameter and returns the power of first number to second number. Create another class Demo (main class) that takes the two numbers from the user and calls all four methods of MathOperation class by providing entered numbers and prints the return values of every method.
+
+Ans: 
+package Assignment1;
+import java.lang.Math;
+import java.util.Scanner; 
+class MathOperation{
+	
+static int  add(int a , int b) {
+	return a+b;
+	}
+static int  subtract(int a , int b) {
+	return a-b;
+	}
+static int  multiply(int a , int b) {
+	return a*b;
+}
+static double  power(int a , int b) {
+	return Math.pow(a, b);
+}
+}
+public class Assign35 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Eneter two number x and y : ");
+		int x = sc.nextInt();
+		int y = sc.nextInt();
+		System.out.println("Addition : "+MathOperation.add(x, y));
+		System.out.println("Subtraction : "+MathOperation.subtract(x, y));
+		System.out.println("Multiplication : "+MathOperation.multiply(x, y));
+		System.out.println("Power : "+MathOperation.power(x, y));
+
+	}
+}
+
+================================================================================================================================
+
+36. Create a class MathOperation containing overloaded methods ‘multiply’ to calculate multiplication of following arguments. 
+a.	 two integers 
+b.	 three floats 
+c.	 all elements of array 
+
+Ans:
+package Assignment1;
+class MathOperation1{
+	int multiply(int a , int b) {
+		return a*b;
+	}
+float multiply(float a , float b , float c) {
+		return a*b*c;
+	}
+int multiply(int arr[]) {
+	int mul = 1;
+	for(int i=0; i<arr.length; i++) {
+		mul *= arr[i];
+	}
+	return mul;
+}
+double  multiply(double a , int b) {
+	return a*b;
+}
+}
+public class Assign36 {
+
+	public static void main(String[] args) {
+		MathOperation1 m = new MathOperation1();
+		int arr[] = new int[] {1,2,3,4,5};
+		
+		System.out.println("Multify two Integers : "+m.multiply(4, 2));
+		System.out.println("Multify three Floats : "+m.multiply(2.2f,2.2f,2.3f));
+		System.out.println("Multify of Array Elements : "+m.multiply(arr));
+		System.out.println("Multify of double and Integers : "+m.multiply(4.00, 2));
+	}
+}
+
+================================================================================================================================
+
+
+37.	Create a class Person with properties (name and age) with following features. 
+a.	Default age of person should be 18.
+b.	A person object can be initialized with name and age.
+c.	Method to display name and age of person
+Create another class PersonDemo ( main class ) that demonstrates the functionalities of Person class by creating Person object and calling methods.
+
+Ans : 
+package Assignment1;
+
+class Person{
+	static int nobj = 0;{
+		nobj++;
+	}
+	private String name;
+	private int age;
+	Person(){
+		age = 18;
+	}
+	Person(String name , int age){
+		this.name = name;
+		this.age = age;
+	}
+	void display() {
+		System.out.println("Name : "+name+" age : "+age);
+	}
+}
+public class Assign37 {
+
+	public static void main(String[] args) {
+		Person p = new Person();
+		//p.display();
+		Person p1 = new Person("Amrita" , 24);
+		p1.display();
+		System.out.println("no of object : "+Person.nobj);
+	}
+}
+
+================================================================================================================================
+
+38. Create a class Employee with three data members (empNo, salary and totalSalary) and following features.
+a.Only parameterized constructor. [Do not overload the constructor]
+b.totalSalary always represents salary total of all the employees created.
+c.empNo should be auto incremented.
+d.display total employees and totalSalary using a method.
+Create another class EmployeeDemo (main class) that creates some Employee objects and calls Employee method to display no. of employees and total of their salaries.
+Ans : 
+package Assignment1;
+
+import java.util.Scanner;
+
+class Employee{
+	static int total_employee = 0;{
+		total_employee++;
+	}
+	private static int empNo=0;
+	private double salary;
+	private static double totalSalary = 0.0;
+	Employee(double salary ){
+		this.salary = salary;
+	}
+	void getData() {
+		empNo++;
+		totalSalary +=salary; 
+	}
+	
+	void setData(){
+		System.out.println("EmpNo : "+empNo+" totalSalary : "+totalSalary);
+		
+	}
+}
+public class Assign38 {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		System.out.print("How many employee details : ");
+		int size = s.nextInt();
+		Employee arr[] = new Employee[size];
+		
+		for(int i=0; i<arr.length; i++) {
+			System.out.print("Enter the salary of EmpNo "+(i+1)+" : ");
+			double salary  = s.nextDouble();
+			Employee e = new Employee(salary);
+			arr[i] = e;
+			}
+		for (Employee a : arr) {
+
+			a.getData();
+			 a.setData();
+			}
+		System.out.println("Total number of object : "+Employee.total_employee);
+	}
+
+}
+
+================================================================================================================================
+
+39.Create class Product with three data members (pid, price, quantity) and parameterized constructor that takes values for all three data members.  
+Create a main method in different class (say ProductDemo) and perform following task:
+a. Accept information for five Product objects from user and store objects in an array
+b. Find pid of product with highest price. 
+c. Create a static method (with array of product’s object as argument) in Product class to calculate and return total amount spent on all products. ( amount spent on single product = price of product * quantity of product )
+
+Ans :
+package Assignment1;
+import java.util.Scanner;
+class Product{
+	 int pid;
+     double price;
+	 int quantity;
+	 double totalAmt;
+	Product(int pid, double price, int quantity) {
+		this.pid = pid;
+		this.price = price;
+		this.quantity = quantity;
+	}
+   void getTotal() {
+	   totalAmt = price*quantity;
+   }
+   void show() {
+	   System.out.print("Pid = "+pid+" Price = "+price+" Quantity = "+quantity+"  Total amt of pid "+pid+" = "+totalAmt+"\n") ;
+   }
+}
+
+public class Assign39 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+	
+        Product arr[] = new Product[3];
+        for(int i=0; i<arr.length;i++) {
+        	System.out.print("Enter pid : ");
+    		int pid = sc.nextInt();
+    		System.out.print("Enter price : ");
+    		double price = sc.nextDouble();
+    		System.out.print("Enter quantity : ");
+    		int quantity = sc.nextInt();
+        	arr[i] = new Product(pid,price,quantity);
+        }
+        double max = arr[0].price;
+        int p=0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i].price > max) 
+                max = arr[i].price; 
+                p=arr[i].pid;
+                } 
+	  System.out.println("pid = "+p+" Maximum price : "+max);
+        	for(Product p1 : arr) {
+        	p1.getTotal();
+        	p1.show();
+        }
+    }
+}
+================================================================================================================================
+
+40.Create a class Student having data members name, roll no., age and score. Write a program to accept 10 records of student and store them in an array. And then arrange the student records based on the score group [0-50], [50-65], [65-80], [80-100].
+
+Ans : 
+/*40.Create a class Student having data members name, roll no., age and score. 
+ * Write a program to accept 10 records of student and store them in an array. 
+ * And then arrange the student records based on the score group
+ *  [0-50], [50-65], [65-80], [80-100].
+ *  */
+package Assignment1;
+
+import java.util.Scanner;
+
+class Student1 {
+	String name;
+	int rollno;
+	int age;
+	int score;
+
+	public Student1(String name, int rollno, int age, int score) {
+		this.name = name;
+		this.rollno = rollno;
+		this.age = age;
+		this.score = score;
+	}
+
+	void setData() {
+		System.out.println("name :" + name + " rollno : " + rollno + " age" + age + " score" + score);
+	}
+}
+public class Assign40 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Student1 arr[] = new Student1[5];
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println("Enter " + (i + 1) + "st Student");
+			System.out.print("Student Name : ");
+			String name = sc.next();
+			System.out.print("Student RollNo : ");
+			int rollno = sc.nextInt();
+			System.out.print("Student age : ");
+			int age = sc.nextInt();
+			System.out.print("Student Score : ");
+			int score = sc.nextInt();
+			arr[i] = new Student1(name, rollno, age, score);
+		}
+		for (int i = 0; i < arr.length; i++) {
+			arr[i].setData();
+		}
+		System.out.println("Score \n");
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].score > 0 && arr[i].score <= 50) {
+				System.out.println("student under [0-50]");
+				System.out.println(arr[i].name);
+			} 
+			if (arr[i].score > 50 && arr[i].score <= 65) {
+				System.out.println("student under [50-65]");
+				System.out.println(arr[i].name);
+			}
+			if (arr[i].score > 65 && arr[i].score <= 80) {
+				System.out.println("student under  [65-80]");
+				System.out.println(arr[i].name);
+			}
+			if (arr[i].score > 80 && arr[i].score <= 100) {
+				System.out.println("student under  [80-100]");
+				System.out.println(arr[i].name);
+			}
+		}
+		sc.close();
+	}
+}
+
+
+================================================================================================================================
+
+41.Write a program to demonstrate this() construct functionality.
+
+================================================================================================================================
+
+42.Create a class Tile to store the edge length of a square tile, and create another class Floor to store length and width of a rectangular floor. Add method totalTiles(Tile t) in Floor class with Tile as argument to calculate the whole number of tiles needed to cover the floor completely.
+
+Ans : 
+package Assignment1;
+
+class Tile {
+	private double edgelength;
+
+	void setTile(double edgelength) {
+		this.edgelength = edgelength;
+	}
+
+	double getAreaTile() {
+		return edgelength * edgelength;
+	}
+}
+
+class Flore extends Tile {
+	private double length;
+	private double width;
+	private double fArea;
+	private int NoOfTile;
+
+	void setFlore(double edgelength, double length, double width) {
+		setTile(edgelength);
+		this.length = length;
+		this.width = width;
+	}
+	void getAreaFlore() {
+		super.getAreaTile();
+		fArea = length * width;
+		NoOfTile = (int) fArea / (int) getAreaTile();
+	}
+	void setNoTiles() {
+		System.out.println("Area of Flore : " + fArea);
+		System.out.println("Area of Tiles : " + getAreaTile());
+		System.out.println("No of Tiles :" + NoOfTile);
+	}
+}
+public class Assign42 {
+	public static void main(String[] args) {
+		Flore f1 = new Flore();
+		f1.setFlore(4, 12, 13);
+		f1.getAreaFlore();
+		f1.setNoTiles();
+	}
+}
+
+
+================================================================================================================================
+
+43.Create a class OneBHK with instance variables roomArea, hallArea and price. Then create default constructor that initializes instance variables with some values and a parameterized constructor that takes values for all instance variables and stores them in instance variables. Now create a method named show()  to print OneBHK’s instance variable values.
+Create another class TwoBHK which has (inherites) all the properties and behaviors of OneBHK and a new instance variable room2Area. Then create default constructor to initialize all 4 instance variables and a parameterized constructor to take the values for initialization of all instance variables. Override show() method to print all data member information.
+Write main method in another class (Say Demo) and store three TwoBHK flat’s information and print information using show method. Also print total amount of all flats. 
+Ans :
+
+package Assignment1;
+
+import java.util.Scanner;
+
+class OneBHK{
+	private double roomArea;
+	private double hallArea;
+    double price;
+    OneBHK(){
+    	roomArea = 0.00;
+    	hallArea = 0.00;
+    	price = 0.00;
+     }
+	OneBHK(double roomArea, double hallArea, double price) {
+		this.roomArea = roomArea;
+		this.hallArea = hallArea;
+		this.price = price;
+	}
+	void show() {
+		System.out.print("RoomArea = "+roomArea+" HallArea = "+hallArea+" price = "+price+" ");
+	}
+}
+class TwoBHK extends OneBHK{
+	private double room2Area;
+	TwoBHK(){
+		super();
+    	room2Area = 0.00;
+     }
+	TwoBHK(double roomArea,double room2Area, double hallArea, double price) {
+		super(roomArea,hallArea,price);
+		this.room2Area = room2Area;
+	}
+	void show() {
+		super.show();
+		System.out.print("Room2Area = "+room2Area);
+		System.out.println("\n");
+	}
+}
+public class Assign43 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		TwoBHK arr[] = new TwoBHK[3];
+		for(int i=0; i<arr.length; i++) {
+			System.out.println("Enter room1 Area : ");
+			double r1a = sc.nextDouble();
+			System.out.println("Enter  room2 Area : ");
+			double r2a = sc.nextDouble();
+			System.out.println("Enter Hall Area : ");
+			double ha = sc.nextDouble();
+			System.out.println("Enter price : ");
+			double price = sc.nextDouble();
+			arr[i] = new TwoBHK(r1a,r2a,ha,price); 
+		}
+		for(TwoBHK t : arr) {
+			t.show();
+		}
+		double totalPrice = 0;
+		for(int i=0; i<arr.length; i++) {
+			totalPrice += arr[i].price; 
+		}
+		System.out.println("Total Price : "+totalPrice);
+sc.close();
+	}
+}
+
+
