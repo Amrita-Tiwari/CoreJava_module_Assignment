@@ -1,0 +1,142 @@
+                                                                                                	  Day6-Assignment
+
+
+48. Create an Abstract class Processor with int member variable data  and method showData to display data value. Create abstract method process() to define processing of member data. Create a class  Factorial using abstract class Processor  to calculate and print factorial of a number by overriding the process method. b. Create a class Circle using abstract class Processor to calculate and print area of a circle by overriding the process method.Ask user to enter choice (factorial or circle area).  Also ask data to work upon. Use Processor class reference to achieve this mechanism.
+
+Ans :
+/*
+  Create an Abstract class Processor with int member variable data  and method showData to display data
+  value. Create abstract method process() to define processing of member data. Create a class  Factorial 
+  using abstract class Processor  to calculate and print factorial of a number by overriding the process 
+  method. b. Create a class Circle using abstract class Processor to calculate and print area of a circle 
+  by overriding the process method.Ask user to enter choice (factorial or circle area).
+  Also ask data to work upon. Use Processor class */
+package Assignment1;
+
+import java.util.Scanner;
+
+abstract class Processor {
+	int data;
+
+	abstract void process();
+
+	void showData() {
+		System.out.println("Data = " + data);
+	}
+}
+
+class Factorial extends Processor {
+	void process() {
+		int fact = 1;
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter Number : ");
+		int n = s.nextInt();
+		if (n == 0)
+			data = 1;
+		else {
+			for (int i = 1; i <= n; ++i)
+				fact *= i;
+			data = fact;
+		}
+	}
+}
+
+class Circle1 extends Processor {
+	void process() {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter Radius : ");
+		double radius = s.nextDouble();
+		double area = 3.14 * radius * radius;
+		data = (int) area;
+	}
+}
+
+public class Assign48 {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+
+		while (true) {
+			System.out.print("Enter your choice : ");
+			String str = s.next();
+			if (str.equals("factorial")) {
+				Processor pro1 = new Factorial();
+				// Factorial f = new Factorial();
+				pro1.process();
+				pro1.showData();
+			}
+			if(str.equals("circle")) {
+			Processor pro2 = new Circle1();
+			// Circle1 c = new Circle1();
+			pro2.process();
+			pro2.showData();
+			}
+			if(str.equals("exit")) {
+				break;
+			}
+		}
+	}
+
+}
+
+================================================================================================================================
+
+49. Create Interface Taxable with members salesTax=7% and incomeTax=10.5%. create abstract method calcTax(). a. Create class Employee(empId,name,salary) and implement Taxable to calculate incomeTax on yearly salary. b. Create class Product(pid,price,quantity) and implement Taxable to calculate salesTax on unit price of product. c. Create class for main method(Say XYZ), accept employee information and a product information from user and print income tax and sales tax respectively.
+
+Ans:
+/*Create Interface Taxable with members salesTax=7% and incomeTax=10.5%.
+ *Create abstract method calcTax().
+ *Create class Employee(empId,name,salary) and implement Taxable to calculate incomeTax on yearly salary.
+ *Create class Product(pid,price,quantity) and implement Taxable to calculate salesTax on unit price of product. 
+ *Create class for main method(Say XYZ), accept employee information and a product information
+  from user and print income tax and sales tax respectively.*/
+package Assignment1;
+
+interface Taxable {
+	public static final float salesTax = 0.07f;
+	public static final float incomeTax = 0.105f;
+}
+class Employee4 implements Taxable{
+	private int empId;
+	private String name;
+	private float salary;
+	public Employee4(int empId, String name, float salary) {
+		this.empId = empId;
+		this.name = name;
+		this.salary = salary;
+	}
+	float calculateIncomeTax() {
+		return salary*12*incomeTax;
+	}
+	void showITax() {
+		System.out.println("EmpId = "+empId+" IncomeTax = "+calculateIncomeTax());
+	}
+}
+class Product2 implements Taxable{
+	private int pid;
+	private float price;
+	private int quantity;
+	public Product2(int pid, float price, int quantity) {
+		this.pid = pid;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	float calculateSalesTax() {
+		return price*salesTax;
+	}
+	void showSTax() {
+		System.out.println("ProductId = "+pid+" SalesTax = "+calculateSalesTax());
+	}
+}
+public class Assign49 {
+
+	public static void main(String[] args) {
+           Employee4 t = new Employee4(101,"amrita",2000);
+            t.calculateIncomeTax();
+            t.showITax();
+            Product2 p = new Product2(202,120,2);
+            p.calculateSalesTax();
+            p.showSTax();
+	}
+
+}
+
