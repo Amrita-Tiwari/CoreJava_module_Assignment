@@ -1,0 +1,209 @@
+							Day9-Assignment
+
+58. Store name of weekdays in an array (starting from “Sunday” at 0 index). Ask day position from user and print day name. Handle array index out of bound exception and give proper message if user enter day index outside range (0-6). 
+
+Ans:
+
+package Assignment1;
+
+import java.util.Scanner;
+
+public class Assign58 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String day[] = new String[] {"MONDAY","TUESDAY","WEDNESDAY","THUSDAY","FRIDAY","SATURDAY","SUNDAY"};
+        try {
+        	System.out.print("Enter the Day Number : ");
+        	int d = sc.nextInt();
+        	System.err.println(day[d]);
+        }
+	catch(ArrayIndexOutOfBoundsException abe) {
+        	System.out.println("You Enter day index outside range (0-6) : "+abe);
+        		}
+	}
+
+}
+
+================================================================================================================================
+
+59.Create a class Voter(voterId, name, age) with parameterized constructor.  The parameterized constructor should throw a checked exception if age is less than 18. The message of exception is “invalid age for voter ” 
+
+Ans : 
+
+package Assignment1;
+import java.util.Scanner;
+@SuppressWarnings("serial")
+class AgeException extends Exception {
+	AgeException() {
+		super("Invalid Age !!!");
+	}
+}
+
+class Voter {
+	private int voterId;
+	private String name;
+	private int age;
+
+	public Voter(int voterId, String name, int age) {
+		this.voterId = voterId;
+		this.name = name;
+		this.age = age;
+	}
+
+	void verifyAge() throws AgeException {
+		if (age >= 18) {
+			System.out.println("VoterId : " + voterId + "  Name : " + name + "  Age : " + age);
+		} else {
+			throw new AgeException();
+		}
+	}
+
+}
+
+public class Assign59 {
+	public static void main(String[] args) throws AgeException {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the VoterId : ");
+		int voterId = sc.nextInt();
+		System.out.print("Enter the Name : ");
+		String name = sc.next();
+		System.out.print("Enter age : ");
+		int age = sc.nextInt();
+		sc.close();
+		Voter v1 = new Voter(voterId, name, age);
+		v1.verifyAge();
+	}
+}
+
+================================================================================================================================
+
+60.Create Interface StudentFee and declare following method.  getFee() throws InvalidFeeException. This method ask fees from user and throws exception if user enters invalid or negative fees Create class Student with members (name, fees) and implement the StudentFee Interface.
+Ans : 
+
+package Assignment1;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+@SuppressWarnings("serial")
+class InvalidFeeException extends Exception {
+	InvalidFeeException(int fee) {
+		super("Negative fee : " + fee);
+	}
+}
+interface StudentFee {
+	void getFee(int fee) throws InvalidFeeException;
+}
+class StudentF implements StudentFee {
+	private String name;
+	public StudentF(String name) {
+		this.name = name;
+	}
+
+	public void getFee(int fee) throws InvalidFeeException {
+		if (fee < 0) {
+			throw new InvalidFeeException(fee);
+		} else {
+			System.out.println("Student Name : " + name + "  Fee : " + fee);
+		}
+	}
+}
+public class Assign60 {
+
+	public static void main(String[] args) {
+		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Enter name : ");
+			String name = sc.nextLine();
+			StudentFee s1 = new StudentF(name);
+			System.out.print("Enter fee : ");
+			int fee = sc.nextInt();
+			s1.getFee(fee);
+			sc.close();
+
+		} catch (InvalidFeeException ie) {
+			System.out.println(ie);
+		} catch (InputMismatchException ime) {
+			System.out.println("Only Integer value : " + ime);
+		}
+	}
+}
+
+================================================================================================================================
+
+61. Create a Thread class to print following star (*) pattern on screen with delay of 1 second between each * print. Number of lines in the pattern should be passed to the constructor of Thread class.  *  * * * *  * * * * * * * * * * Use this class in main method and ask user to enter number of lines to print.
+
+Ans : 
+package Assignment1;
+
+import java.util.Scanner;
+public class Assign61 {
+
+	public static void main(String[] args) {
+
+		MyThread m = new MyThread();
+		Thread th = new Thread(m);
+		th.start();
+	}
+}
+
+class MyThread extends Thread {
+	public void run() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the Number : ");
+		int n = sc.nextInt();
+		for (int row = 0; row < n; row++) {
+			try {
+				Thread.sleep(2000);
+			}
+
+			catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+			System.out.println("*");
+		}
+	}
+}
+
+================================================================================================================================
+
+62. Create a class that checks whether a given number is prime or not using  Runnable interface
+Ans : 
+/88.	Create a class that checks whether a given number is prime or not using  Runnable interface./
+package assignment;
+import java.util.*;
+import java.io.*;
+public class Q88  {
+
+	public static void main(String[] args) {
+		try {
+		Prime p = new Prime();
+		Thread th = new Thread(p);
+		th.start();}
+		catch(Exception e) {}
+	}
+
+}
+
+class Prime implements Runnable{
+	public void run() {
+		int no;
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter a number : ");
+		int n = s.nextInt();
+		
+         int cnt=0;
+            for(int i=2;i<=n/2;i++)
+                if(n%i==0)
+                {
+                    cnt++;
+                    break;
+                }
+            if(cnt==0)
+            {  System.out.println(n+" Number is prime");
+            }
+            else {
+            	System.out.println(n+" Number is not a prime");
+            }
+	}
+}

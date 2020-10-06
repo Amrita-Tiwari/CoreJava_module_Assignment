@@ -1,0 +1,237 @@
+							Day10 - Assignment
+
+63. Write a program to count how many times character ‘t’ occurs in a file. 
+Ans : 
+package Assignment1;
+
+import java.io.*;
+
+public class Assign63 {
+
+	public static void main(String[] args) throws IOException {
+		FileReader f = new FileReader("G:\\CDAC_CORE_JAVA_16th-sept\\dir1\\file1.txt");
+		int ch = -1;
+		int count = 0;
+		while ((ch = f.read()) != -1) {
+			if(ch == 't') {
+				count++;
+			}
+		}
+		System.out.println(count);
+		
+		f.close();
+		
+		System.out.println("\nsuccess");
+	}
+
+}
+
+================================================================================================================================
+
+64. Write a program to count no of words in a text file and average word size.
+Ans: 
+package Assignment1;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Assign64 {
+
+	public static void main(String[] args) throws IOException {
+		FileReader f = new FileReader("G:\\CDAC_CORE_JAVA_16th-sept\\dir1\\file1.txt");
+
+		BufferedReader b = new BufferedReader(f);
+		String s = null;
+		int count = 0;
+		int wcount = 0;
+		int charCount = 0;
+		double avg;
+		while ((s = b.readLine()) != null) {
+			System.out.println(s);
+			String word[] = s.split(" ");
+			for (int i = 0; i < word.length; i++) {
+				wcount++;
+				for (int j = 0; j < word[i].length(); j++) {
+					charCount++;
+				}
+			}
+			count++;
+
+		}
+		System.out.println("\nNumber of Lines in File :  "+count+"\n");
+		System.out.println("Number of words in File :  "+wcount+"\n");
+		System.out.println("Number of total Characters in File :  "+charCount+"\n");
+		avg = charCount / wcount;
+		System.out.println("Avarage of Word size : "+avg);
+
+		
+		b.close();
+		f.close();
+	}
+
+}
+
+================================================================================================================================
+
+65.Write a program to count number of bytes in a image file(jpeg/png/gif).  Also find how much time it will take to upload the file on server if internet 		speed is 256 bps(bits per second).
+Ans: 
+package Assignment1;
+
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+ 
+ 
+public class Assign65 {
+	public static void main(String[] args) throws IOException{
+		String dirName="C:\\Users\\Admin\\OneDrive\\Pictures\\Screenshots";
+		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+		BufferedImage img=ImageIO.read(new File(dirName,"dip.png"));
+		ImageIO.write(img, "jpg", baos);
+		baos.flush();
+ 
+		String base64String=Base64.encode(baos.toByteArray());
+		baos.close();
+ 
+		byte[] bytearray = Base64.decode(base64String);
+ 
+		BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytearray));
+		ImageIO.write(imag, "jpg", new File(dirName,"snap.jpg"));
+	}
+}
+
+================================================================================================================================
+
+66. Write a program to store your shopping details in a binary file(shopping.dat) with information itemName, price, quantity. (Use ObjectOutputStream 		to store Item class object ).
+Ans  :
+package Assignment1;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Scanner;
+
+class Shopping implements Serializable{
+	public String itemName;
+	public double prize;
+	public int quantity;
+	public Shopping(String itemName, double prize, int quantity) {
+		this.itemName = itemName;
+		this.prize = prize;
+		this.quantity = quantity;
+	}
+}
+public class Assign66 {
+
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter itemName : ");
+		String itemName = sc.next();
+		System.out.print("Enter prize of Item : ");
+		double prize = sc.nextDouble();
+		System.out.print("Enter Quantity of Item : ");
+		int qty = sc.nextInt();
+		
+		Shopping sp = new Shopping(itemName,prize,qty);
+		String filename = "G:\\CDAC_CORE_JAVA_16th-sept\\dir1\\ShoppingDetials.dat";
+		
+		FileOutputStream saveDetial = new FileOutputStream(filename);
+		ObjectOutputStream out = new ObjectOutputStream(saveDetial);
+		out.writeObject(sp);
+		saveDetial.close();
+		System.out.println("Object are saved in file");
+		sc.close();
+	}
+
+}
+
+================================================================================================================================
+
+67. Write a program to read data from shopping.dat file creted in above problem and find total money spent on all shopping items. . (Use 
+	ObjectInputStream to read Item class object)
+Ans:
+package Assignment1;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Scanner;
+
+@SuppressWarnings("serial")
+class Shopping1 implements Serializable {
+	public String itemName;
+	public double prize;
+	public int quantity;
+
+	public Shopping1(String itemName, double prize, int quantity) {
+		this.itemName = itemName;
+		this.prize = prize;
+		this.quantity = quantity;
+	}
+
+	double getTotal() {
+		return prize * quantity;
+	}
+}
+
+public class Assign67 {
+
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter itemName : ");
+		String itemName = sc.next();
+		System.out.print("Enter prize of Item : ");
+		double prize = sc.nextDouble();
+		System.out.print("Enter Quantity of Item : ");
+		int qty = sc.nextInt();
+
+		Shopping1 sp = new Shopping1(itemName, prize, qty);
+		String filename = "G:\\CDAC_CORE_JAVA_16th-sept\\dir1\\ShoppingDetials.dat";
+
+		/*-----------------Serialization-----------------*/
+
+		FileOutputStream saveDetial = new FileOutputStream(filename);
+		ObjectOutputStream out = new ObjectOutputStream(saveDetial);
+		out.writeObject(sp);
+		saveDetial.close();
+		System.out.println("Object are saved in file");
+		sc.close();
+
+		/*--------------------DeSerialization----------------*/
+
+		Shopping1 sp1 = null;
+		try {
+			FileInputStream readobj = new FileInputStream(filename); // reading an object from file
+			ObjectInputStream is = new ObjectInputStream(readobj);
+			sp1 = (Shopping1) is.readObject(); // deserialize the object
+			is.close();
+			readobj.close();
+			System.out.println("ItemName : " + sp1.itemName);
+			System.out.println("Prize : " + sp1.prize);
+			System.out.println("Quantity : " + sp1.quantity);
+			System.out.println("Total Money : " + sp1.getTotal());
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		catch (ClassNotFoundException cnf) {
+			cnf.printStackTrace();
+		}
+
+	}
+
+}
+
